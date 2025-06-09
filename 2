@@ -140,17 +140,9 @@ bool BOARD::isFreeBlock(int positionX, int positionY){
 
 }
 
+int BOARD::GetPositionInPixelY(int positionY){
 
-int BOARD::GetPositionInPixelX(int Position){
-
-  return (mScreenHeight - (BLOCK_SIZE * BOARD_HEIGHT) + ( Position * BLOCK_SIZE) );
-  
-}
-
-
-int BOARD::GetPositionInPixelY(int Position){
-
-  return ( mScreenHeight - (BLOCK_SIZE * BOARD_HEIGHT) + ( Position * BLOCK_SIZE) );
+  return (mScreenHeight - (BLOCK_SIZE * BOARD_HEIGHT) + ( pPos * BLOCK_SIZE) )
   
 }
 
