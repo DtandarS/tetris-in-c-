@@ -50,7 +50,7 @@ class Board {
 #endif
 
 
-void BOARD::InitBoard () {
+void Board::InitBoard () {
 
   for( int i = 0; i < BOARD_WIDTH; i++){
     for( int j = 0; j < BOARD_HEIGHT; j++){
@@ -61,7 +61,7 @@ void BOARD::InitBoard () {
 };
 
 
-void BOARD::storePiece (int positionX, int positionY, int PieceToDraw, int PossibleRotations){
+void Board::storePiece (int positionX, int positionY, int PieceToDraw, int PossibleRotations){
 
   // Store each block of the piece into the board
   for (int i1 = pX, i2 = 0; i1 < pX + PIECE_BLOCK; i1++, i2++)
@@ -77,7 +77,7 @@ void BOARD::storePiece (int positionX, int positionY, int PieceToDraw, int Possi
 
 /* check whether there is a code over the first line */
 
-void BOARD::gameOver(){
+void Board::gameOver(){
 
   for ( int i = 0; i < BOARD_WIDTH; i++){
 
@@ -110,7 +110,7 @@ void Board::deleteLine( int positionY ){
 
 /* Method that deletes possible lines by checking the completed rows */
 
-void BOARD::deletePossibleLines (){
+void Board::deletePossibleLines (){
 
   for ( int j = 0; j < BOARD_HEIGHT; j++ ){
 
@@ -131,7 +131,7 @@ void BOARD::deletePossibleLines (){
 
 /* checks whether the block out of board filled or not */
 
-bool BOARD::isFreeBlock(int positionX, int positionY){
+bool Board::isFreeBlock(int positionX, int positionY){
 
   if ( mBoard[positionX][positionY]==POS_FREE ) 
     return true;
@@ -141,18 +141,45 @@ bool BOARD::isFreeBlock(int positionX, int positionY){
 }
 
 
-int BOARD::GetPositionInPixelX(int Position){
+int Board::GetPositionInPixelX(int Position){
 
-  return (mScreenHeight - (BLOCK_SIZE * BOARD_HEIGHT) + ( Position * BLOCK_SIZE) );
+  return ( (BOARD_POSITION - (BLOCK_SIZE * (BOARD_WIDTH / 2))) + (Position * BLOCK_SIZE) );
   
 }
 
 
-int BOARD::GetPositionInPixelY(int Position){
+int Board::GetPositionInPixelY(int Position){
 
   return ( mScreenHeight - (BLOCK_SIZE * BOARD_HEIGHT) + ( Position * BLOCK_SIZE) );
   
 }
+
+
+bool Board::isPossibleMovement(int positionX, int positionY, int PieceToDraw, int PossibleRotations){
+
+  for ( int i1 = positionX, i2 = 0; j1 < positionX + PIECE_BLOCK; i1++, i2++ ){
+
+    for ( int j1 = positionY, j2 = 0; j1 < positionY + PIECE_BLOCK; j1++, j2++ ){
+      if ( i1 < 0 || 
+          i1 > BOARD_WIDTH - 1 || 
+          j1 > BOARD_WIDTH - 1){
+        if (mPieces -> GetBlockType(PieceToDraw, PossibleRotations, j2, i2) !=0) 
+          return 0;
+      }
+      if ( j1 >= 0 ){
+        if ((mPieces->GetBlockType (PieceToDraw, PossibleRotations, j2, i2) != 0) &&
+            (!isFreeBlock (i1, j1)) )
+          return false;
+      }
+    }
+  }
+
+  return true;
+
+}
+
+
+
 
 
 
