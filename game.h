@@ -20,12 +20,68 @@ class Game(){
     void drawScene();
     void CreatePieces();
 
+
+    int mPosX, mPosY;
+    int mPiece, mRotation;
+
+  private:
+
+    int mScreenHeight;
+    int mNextPosX, mNextPosY;
+    int mNextPiece, mNextRotation; 
+
+  Board *mBoard;
+  Pieces *mPieces;
+  IO *mIO;
+
+  int getRand(int pA, pB);
+  void InitGame();
+  int drawPieces(int positionX, int positionY, int PieceToDraw, int PossibleRotations);
+  int DrawBoard();
+
+};
+
+#endif
+
+int Game::getRand(int pA, pB){
+
+  return rand () % (pB - pA + 1) + pA;
+
 }
 
 
+int Game::InitGame(){
+
+  srand ((unsigned int) time(NULL));
+
+  // First block
+  mPiece = getRand(0,6);
+  mRotation = getRand(0,3);
+  mPosX = (BOARD_WIDTH / 2) + mPiece -> HorizontalInitalPositon (mPiece, mRotation);
+  mPosY = mPiece -> VerticalInitalPositon (mPiece, mRotation);
+
+  // Next block
+  mPiece = getRand(0,6);
+  mRotation = getRand(0,3);
+  mNexPosX = BOARD_WIDTH + 5;
+  mNexPosY = 5;
+
+}
 
 
+int Game::CreateNewPiece(){
 
+  //The new piece
+  mPiece = mNextPiece;
+  mRotation = mNextRotation;
+  mPosX = (BOARD_WIDTH / 2) + mPiece -> HorizontalInitalPositon (mPiece, mRotation);
+  mPosY = mPiece -> VerticalInitalPositon (mPiece, mRotation);
+
+  // random pieces
+  mNextPiece = getRand(0,6);
+  mNextRotation = getRand(0,3);
+
+}
 
 
 
