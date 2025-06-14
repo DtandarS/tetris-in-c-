@@ -84,6 +84,28 @@ int Game::CreateNewPiece(){
 }
 
 
+int Game::drawPiece(int positionX, int positionY, int PieceToDraw, int PossibleRotations){
+
+  color mColor;
+
+  int mPixelsX = mBoard -> GetPositionInPixelX (positionX); 
+  int mPixelsY = mBoard -> GetPositionInPixelY (positionY); 
+
+  for (int i = 0; i < PIECE_BLOCKS; i++){
+    for (int j = 0; j < PIECE_BLOCKS; j++){
+      switch (mPieces -> GetBlockType(PieceToDraw, PossibleRotation, j, i)){
+        case 1: mColor = GREEN; break; // for each block of the piece except the picot
+        case 2: mColor = BLUE; break; // for the pivot
+
+      }
+      if (mPieces -> GetBlockType(PieceToDraw, PossibleRotation, j, i) != 0 ) 
+        mIO -> DrawRectangle( mPixelsX i * BLOCK_SIZE, mPixelsY + j BLOCK_SIZE, (mPixelsX + i * BLOCK_SIZE) + BLOCK_SIZE - 1, ( mPixelsY + j * BLOCK_SIZE ) + BLOCK_SIZE - 1, mColor ); 
+    }
+  }
+}
+
+
+
 
 
 
