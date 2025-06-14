@@ -104,6 +104,31 @@ int Game::drawPiece(int positionX, int positionY, int PieceToDraw, int PossibleR
   }
 }
 
+void Game::DrawBoard (){
+
+  int mX1 = BOARD_POSITION - ( BLOCK_SIZE * ( BOARD_WIDTH / 2 ) ) - 1;
+  int mX2 = BOARD_POSITION + ( BLOCK_SIZE * ( BOARD_WIDTH / 2 ) );
+  int mY = mScreenHeight - ( BLOCK_SIZE * BOARD_HEIGHT );
+  
+  // assert ( mY > MIN_VERTICAL_MARGIN )
+
+  mIO -> DrawRectangle ( mX1 - BOARD_LINE__WIDTH, mY, mX1, mScreenHeight - 1, BLUE ); 
+
+  mIO -> DrawRectangle ( mX2 , mY, mX2 + BOARD_LINE__WIDTH, mScreenHeight - 1, BLUE ); 
+
+  // assert ( mX1 > MIN_HORIZONTAL_MARGIN );
+  
+  mX1 += 1;
+
+  for (int i = 0; i < BOARD_WIDTH; i++){
+    for( int j = 0; j < BOARD_HEIGHT; j++ ){
+
+      if (!mBoard -> IsFreeBlock(i, j))
+        mIO -> DrawRectangle (mX1 + i * BLOCK_SIZE, mY + j * BLOCK_SIZE, (mX1 + i * BLOCK_SIZE) + BLOCK_SIZE - 1, ( mY + j * BLOCK_SIZE ) + BLOCK_SIZE - 1, RED);
+
+    }
+  }
+}
 
 
 
